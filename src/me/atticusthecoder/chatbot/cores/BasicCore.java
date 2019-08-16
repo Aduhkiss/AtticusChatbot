@@ -11,5 +11,15 @@ public class BasicCore extends Core {
 	@Override
 	public void registerInvokationPhrases() {
 		addInvokationPhrase("HELLO THERE");
+		addInvokationPhrase("HI THERE");
+		addInvokationPhrase("HI");
+		addInvokationPhrase("HELLO");
+	}
+
+	@Override
+	public void registerResponses() {
+		addResponse("Hi!");
+		addResponse("Hey!");
+		addResponse("Hi there!");
 	}
 }

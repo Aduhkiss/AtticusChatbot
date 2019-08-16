@@ -3,7 +3,7 @@ package me.atticusthecoder.chatbot.util;
 public class ConsoleUtil {
 	private static ConsoleUtil me;
 	
-	private boolean debugMode = true;
+	private boolean debugMode = false;
 	
 	public static ConsoleUtil get() {
 		if(me == null) {

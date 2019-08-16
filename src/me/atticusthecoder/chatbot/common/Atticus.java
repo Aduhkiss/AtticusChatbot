@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.atticusthecoder.chatbot.cores.BasicCore;
+import me.atticusthecoder.chatbot.exception.ResponseNotFoundException;
 import me.atticusthecoder.chatbot.util.ConsoleUtil;
 
 public class Atticus {
 	
-	private Mood myMood;
 	private String myName;
 	
 	private List<Core> activeCores = new ArrayList<Core>();
 	
 	public Atticus(String myName) {
-		myMood = Mood.NORMAL;
 		this.myName = myName;
 		registerCores();
 	}
@@ -30,10 +29,28 @@ public class Atticus {
 		System.out.println("[" + myName + "] " + message);
 	}
 	
-	public enum Mood {
-		NORMAL,
-		HAPPY,
-		SAD,
-		ANGRY,
+	public String getResponse(String message) {
+		boolean found = false;
+		String theReponse = null;
+		for(Core c : activeCores) {
+			if(!found) {
+				String response = null;
+				try {
+					response = c.process(message, this);
+				} catch(ResponseNotFoundException ex) {
+					// There was no response found from this core, just ignore it and move on.
+				}
+				if(response != null) {
+					found = true;
+					theReponse = response;
+				}
+			}
+		}
+		
+		return theReponse;
+	}
+	
+	public String getName() {
+		return myName;
 	}
 }
